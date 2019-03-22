@@ -21,9 +21,13 @@ switch (comando) {
         break;
 
     case 'actualizar':
-        console.log('Actualizar Tarea')
+        let act = toDo.actualizar(argv.descripcion, argv.completado);
+        console.log(`${ act ?'Se Actualizo Correctamente' :'Ocurrio un error al Actualizar' }`);
         break;
-
+    case 'borrar':
+        let del = toDo.borrar(argv.descripcion);
+        console.log(`${ del ?'Se Elimino Correctamente' :'No se encontro la tarea' }`)
+        break;
     default:
         console.log('Comando no reconocido.')
         break;

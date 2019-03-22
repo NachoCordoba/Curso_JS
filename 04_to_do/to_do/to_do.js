@@ -35,8 +35,46 @@ const getListado = () => {
     return toDo;
 }
 
+const actualizar = (descripcion, completado = true) => {
+    cargarDB();
+    let response;
+    let index = toDo.findIndex(tarea => {
+        return tarea.descripcion === descripcion;
+    });
+
+    if (index >= 0) {
+        toDo[index].completado = completado;
+        guardarDB();
+        response = true;
+    } else {
+        response = false;
+    }
+
+    return response;
+}
+
+const borrar = (descripcion) => {
+    cargarDB();
+    let response;
+    let index = toDo.findIndex(tarea => {
+        return tarea.descripcion === descripcion;
+    });
+
+    if (index >= 0) {
+        toDo.splice(index, 1);
+        guardarDB();
+        response = true;
+    } else {
+        response = false;
+    }
+
+    return response;
+}
+
 
 module.exports = {
     crear,
-    getListado
+    getListado,
+    actualizar,
+    borrar
 }
