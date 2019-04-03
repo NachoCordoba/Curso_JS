@@ -1,8 +1,11 @@
 // Comando para establecer comunicacion
 var socket = io();
-
+var label = $('#lblNuevoTicket');
 socket.on('connect', function() {
     console.log('Se establecio comunicacion');
+    socket.emit('getLast', null, function(siguiente) {
+        label.text(siguiente);
+    });
 });
 
 socket.on('disconnect', function() {
@@ -10,9 +13,11 @@ socket.on('disconnect', function() {
 });
 
 $('button').on('click', function() {
-    socket.emit('newTicket');
+    socket.emit('newTicket', null, function(siguiente) {
+        label.text(siguiente);
+    });
 });
 
 socket.on('newTicket', function(resp) {
-    console.log(resp);
+    label.text(resp.siguiente);
 });
